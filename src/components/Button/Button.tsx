@@ -49,51 +49,61 @@ export interface ButtonProps extends AriaButtonProps {
 
 const variantClassMap: { [_ in ButtonVariant]: string } = {
   primary:
-    "text-gray-0 \
-    bg-bluealpha-100 hover:bg-bluealpha-200 active:bg-blue-900 \
-    disabled:text-whitealpha-64 disabled:bg-bluealpha-32 disabled:hover:bg-bluealpha-32 disabled:active:bg-bluealpha-32 \
+    "text-white \
+    bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 \
+    hover:from-indigo-600 hover:via-violet-600 hover:to-purple-600 \
+    active:from-indigo-700 active:via-violet-700 active:to-purple-700 \
+    shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-violet-500/30 \
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none \
+    transition-all duration-200 ease-out \
     \
-    dark:text-gray-0 \
-    dark:bg-blue-600 dark:hover:bg-blue-700 dark:active:bg-blue-800 \
-    dark:disabled:text-whitealpha-64 dark:disabled:bg-bluealpha-16 dark:disabled:hover:bg-bluealpha-16 dark:disabled:active:bg-bluealpha-16",
+    dark:from-indigo-600 dark:via-violet-600 dark:to-purple-600 \
+    dark:hover:from-indigo-500 dark:hover:via-violet-500 dark:hover:to-purple-500 \
+    dark:shadow-indigo-500/20 dark:hover:shadow-violet-500/25",
   secondary:
-    "text-gray-900 \
-    bg-gray-0 hover:bg-gray-50 active:bg-gray-100 \
-    border border-gray-200 \
-    disabled:text-gray-300 disabled:bg-gray-0 disabled:hover:bg-gray-0 disabled:active:bg-gray-0 \
+    "text-gray-700 \
+    bg-white/80 hover:bg-white active:bg-gray-50 \
+    backdrop-blur-sm \
+    border border-gray-200/60 hover:border-gray-300/80 \
+    shadow-sm hover:shadow-md \
+    disabled:text-gray-400 disabled:bg-gray-100 disabled:shadow-none \
+    transition-all duration-200 \
     \
-    dark:text-gray-50 \
-    dark:bg-gray-700 dark:hover:bg-gray-800 dark:active:bg-gray-900 \
-    dark:border dark:border-gray-600\
-    dark:disabled:text-gray-400 dark:disabled:bg-gray-800 dark:disabled:hover:bg-gray-800 dark:disabled:active:bg-gray-800 \
-    dark:disabled:border-gray-700",
+    dark:text-gray-200 \
+    dark:bg-slate-800/80 dark:hover:bg-slate-700/80 dark:active:bg-slate-700 \
+    dark:border-slate-700/60 dark:hover:border-slate-600/80 \
+    dark:disabled:text-slate-500 dark:disabled:bg-slate-800",
   tertiary:
-    "text-bluealpha-200 \
-    bg-bluealpha-8 hover:bg-bluealpha-24 active:bg-bluealpha-32 \
+    "text-indigo-600 \
+    bg-indigo-50/80 hover:bg-indigo-100/80 active:bg-indigo-100 \
+    backdrop-blur-sm \
+    transition-all duration-200 \
     \
-    dark:text-blue-100 \
-    dark:bg-bluealpha-32 dark:hover:bg-bluealpha-24 dark:active:bg-bluealpha-16",
-  text: "text-gray-900 \
-    bg-transparent hover:bg-gray-100 active:bg-gray-200 \
+    dark:text-indigo-300 \
+    dark:bg-indigo-500/20 dark:hover:bg-indigo-500/30 dark:active:bg-indigo-500/40",
+  text: "text-gray-700 \
+    bg-transparent hover:bg-gray-100/80 active:bg-gray-200/80 \
+    transition-all duration-200 \
     \
-    dark:text-gray-50 \
-    dark:bg-transparent dark:hover:bg-gray-700 dark:active:bg-gray-800",
-  link: "text-bluealpha-100 hover:text-bluealpha-200 active:text-blue-900 \
-    bg-transparent \
+    dark:text-gray-200 \
+    dark:hover:bg-slate-700/60 dark:active:bg-slate-600/60",
+  link: "text-indigo-500 hover:text-indigo-600 active:text-indigo-700 \
+    bg-transparent hover:underline \
+    transition-colors duration-200 \
     \
-    dark:text-blue-400 dark:hover:text-blue-500 dark:active:text-blue-600",
+    dark:text-indigo-400 dark:hover:text-indigo-300 dark:active:text-indigo-200",
 };
 
 const iconVariantClassMap: { [_ in ButtonVariant]: string } = {
   primary:
-    "text-gray-0 dark:text-gray-0 \
-  group-disabled/button:text-whitealpha-64 dark:group-disabled/button:text-whitealpha-64",
+    "text-white dark:text-white \
+    group-disabled/button:text-white/60 dark:group-disabled/button:text-white/60",
   secondary:
-    "text-gray-400 dark:text-gray-200 \
-    group-disabled/button:text-gray-200 dark:group-disabled/button:text-gray-400",
-  tertiary: "text-bluealpha-100 dark:text-blue-400",
-  text: "text-gray-400 dark:text-gray-200",
-  link: "text-bluealpha-100 active:text-bluealpha-900 dark:text-blue-500 dark:active:text-blue-600",
+    "text-gray-500 dark:text-gray-300 \
+    group-disabled/button:text-gray-300 dark:group-disabled/button:text-slate-500",
+  tertiary: "text-indigo-500 dark:text-indigo-400",
+  text: "text-gray-500 dark:text-gray-300",
+  link: "text-indigo-500 dark:text-indigo-400",
 };
 
 const sizeClassMap: (size: ButtonSize, variant: ButtonVariant) => string = (
@@ -167,7 +177,7 @@ export function Button({
       {...buttonProps}
       {...focusProps}
       ref={buttonRef}
-      className={`rounded-lg gap-2 flex flex-row group/button ${variantClass} ${sizeClass} ${fillClass} ${className} ${focusOutlineClass}`}
+      className={`rounded-xl gap-2 flex flex-row items-center group/button ${variantClass} ${sizeClass} ${fillClass} ${className} ${focusOutlineClass}`}
     >
       {leftIcon && (
         <div className={`${iconSizeClass} ${iconVariantClass}`}>{leftIcon}</div>

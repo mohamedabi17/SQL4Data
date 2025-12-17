@@ -22,9 +22,9 @@ export function ExpectedQueryResults({ table }: ExpectedQueryResultsProps) {
         </div>
       )}
       {!table && (
-        <div className="overflow-auto flex flex-col justify-center items-center border-gray-200 dark:border-gray-700 border rounded-lg h-full">
+        <div className="overflow-auto flex flex-col justify-center items-center border-gray-200 dark:border-gray-700 border rounded-lg h-full px-4">
           <BigTableIcon className="w-[56px] h-[56px] mb-4" />
-          <span className="max-w-[222px] text-center text-gray-700 dark:text-gray-200">
+          <span className="max-w-full sm:max-w-[222px] text-center text-sm sm:text-base text-gray-700 dark:text-gray-200">
             {t("no_expected_output_for_task")}
           </span>
         </div>

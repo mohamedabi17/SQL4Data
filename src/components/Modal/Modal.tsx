@@ -38,11 +38,11 @@ export function Modal({
     <Overlay>
       <div
         {...underlayProps}
-        className="fixed z-[100] inset-0 bg-darkalpha-48 grid grid-cols-[auto_auto_auto] grid-rows-[1fr_1fr_1fr] max-w-[100vw]"
+        className="fixed z-[100] inset-0 bg-slate-900/60 backdrop-blur-sm grid grid-cols-[auto_auto_auto] grid-rows-[1fr_1fr_1fr] max-w-[100vw] animate-fade-in"
       >
         <div
           {...modalProps}
-          className={`bg-gray-0 dark:bg-gray-900 c-shadow-modal flex flex-row max-w-[100vw] ${modalPositionClass} ${className}`}
+          className={`bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl c-shadow-modal flex flex-row max-w-[100vw] border-b border-gray-200/50 dark:border-slate-700/50 ${modalPositionClass} ${className}`}
           ref={ref}
         >
           {position === "leftFullHeight" && (

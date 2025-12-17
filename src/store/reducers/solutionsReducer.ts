@@ -11,6 +11,7 @@ export interface Solution {
   taskId: Task["id"];
   status: SolutionStatus;
   query: string;
+  error?: string;
 }
 
 export const solutionsAdapter = createEntityAdapter<Solution>({

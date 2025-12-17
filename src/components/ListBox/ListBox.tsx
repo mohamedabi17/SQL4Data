@@ -49,16 +49,19 @@ function Option({ item, state }: OptionProps) {
     ref
   );
 
-  let className = "text-gray-900 bg-transparent dark:text-gray-50";
+  let className = "text-gray-700 bg-transparent dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-slate-700";
   if (isFocused) {
-    className = "text-gray-900 bg-gray-100 dark:text-gray-50 dark:bg-gray-600";
+    className = "text-indigo-700 bg-indigo-50 dark:text-indigo-300 dark:bg-slate-700";
+  }
+  if (isSelected) {
+    className = "text-indigo-700 bg-indigo-100/80 dark:text-indigo-300 dark:bg-indigo-500/30 font-medium";
   }
 
   return (
     <li
       {...optionProps}
       ref={ref}
-      className={`cursor-pointer px-3 py-1 text-p-md outline-none rounded ${className}`}
+      className={`cursor-pointer px-3 py-2 text-p-md outline-none rounded-lg transition-colors duration-150 ${className}`}
     >
       {item.rendered}
     </li>

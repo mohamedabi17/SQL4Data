@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Item } from "react-stately";
 import { QueryExecResult } from "sql.js";
@@ -20,6 +20,9 @@ import { TextArea, TextAreaStatus } from "../../components/TextArea/TextArea";
 import { SolutionStatus } from "../../store/reducers/solutionsReducer";
 import { ExpectedQueryResults } from "../ExpectedQueryResults/ExpectedQueryResults";
 import { UserQueryResults } from "../UserQueryResults/UserQueryResults";
+import { AIFeedback } from "../../components/AIFeedback/AIFeedback";
+import { HintPanel } from "../../components/HintPanel/HintPanel";
+import { IDELayout, TabPanel, ResizablePanel, MobileIDELayout } from "../../components/IDELayout/IDELayout";
 
 interface SolutionEditorProps {
   selectedTask: Task["id"] | null;
@@ -31,6 +34,12 @@ interface SolutionEditorProps {
   textAreaValue: string;
   onChangeTextArea: (value: string) => void;
   onSelectNextTask: () => void;
+  errorMessage?: string;
+  currentHintLevel: number;
+  solutionShown: boolean;
+  onUseHint: (level: number) => void;
+  onShowSolution: () => void;
+  onShowAdModal?: (type: 'ai_feedback' | 'hint' | 'solution') => void;
 }
 
 interface ChipAttributeProps {
@@ -138,20 +147,20 @@ function TaskDescription({ task }: TaskDescriptionProps) {
     <>
       {task && (
         <>
-          <span className="mb-2 font-semibold text-p-lg text-gray-1000 dark:text-gray-200">
+          <span className="mb-2 font-bold text-p-lg bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
             {t(`topics.${task.topic}`)}
           </span>
-          <span className="mb-6 text-p-lg text-gray-900 dark:text-gray-100">
+          <span className="mb-6 text-p-lg text-gray-700 dark:text-gray-200 leading-relaxed">
             {t(`tasks.${task.id}`)}
           </span>
         </>
       )}
       {!task && (
         <>
-          <div className="w-[50%] h-[20px] mb-3 bg-gray-200 rounded-[100px]" />
-          <div className="w-full h-[14px] mb-2 bg-gray-200 rounded-[100px]" />
-          <div className="w-full h-[14px] mb-2 bg-gray-200 rounded-[100px]" />
-          <div className="w-[70%] h-[14px] mb-6 bg-gray-200 rounded-[100px]" />
+          <div className="w-[50%] h-[20px] mb-3 bg-gradient-to-r from-gray-200 to-gray-100 dark:from-slate-700 dark:to-slate-600 rounded-full animate-pulse" />
+          <div className="w-full h-[14px] mb-2 bg-gradient-to-r from-gray-200 to-gray-100 dark:from-slate-700 dark:to-slate-600 rounded-full animate-pulse" />
+          <div className="w-full h-[14px] mb-2 bg-gradient-to-r from-gray-200 to-gray-100 dark:from-slate-700 dark:to-slate-600 rounded-full animate-pulse" />
+          <div className="w-[70%] h-[14px] mb-6 bg-gradient-to-r from-gray-200 to-gray-100 dark:from-slate-700 dark:to-slate-600 rounded-full animate-pulse" />
         </>
       )}
     </>
@@ -161,20 +170,20 @@ function TaskDescription({ task }: TaskDescriptionProps) {
 function SkeletonTable() {
   return (
     <Table
-      className="w-full max-w-[390px]"
-      header={[<div className="w-[210px] h-4 bg-gray-200 rounded-[100px]" />]}
+      className="w-full max-w-full sm:max-w-[390px]"
+      header={[<div className="w-full max-w-[210px] h-4 bg-gray-200 rounded-[100px]" />]}
       data={[
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
-        [<div className="w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
+        [<div className="w-full max-w-[340px] h-3 bg-gray-200 rounded-[100px]" />],
       ]}
     />
   );
@@ -195,13 +204,13 @@ function StructureTables({
 
   return (
     <div
-      className={`flex flex-col px-6 pb-6 md:pb-0 w-full md:h-full ${className}`}
+      className={`flex flex-col px-3 xs:px-4 sm:px-6 pb-6 md:pb-0 w-full md:h-full ${className}`}
     >
       <div className="h-full flex flex-col">
-        <div className="flex flex-row py-6 items-center justify-between">
+        <div className="flex flex-row py-4 sm:py-6 items-center justify-between">
           <div className="flex flex-row gap-2">
             <>
-              <span className="text-p-lg font-bold text-gray-900 dark:text-gray-200">
+              <span className="text-sm sm:text-p-lg font-bold text-gray-900 dark:text-gray-200">
                 {t("tables_description")}
               </span>
               <Chip style="white" aria-label={t("amount_of_tables")}>
@@ -223,10 +232,10 @@ function StructureTables({
           ref={scrollRef}
           className="items-center md:pb-6 h-full overflow-y-auto"
         >
-          <div className="w-full flex flex-col gap-3 pr-3 items-center">
+          <div className="w-full flex flex-col gap-3 pr-2 sm:pr-3 items-center">
             {taskTables?.map(({ name, columns }) => (
               <Table
-                className="w-full max-w-[390px]"
+                className="w-full max-w-full sm:max-w-[390px]"
                 key={name}
                 header={[name]}
                 data={
@@ -294,8 +303,8 @@ function ExpectedResultFrame({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col w-full h-[85vh]">
-      <div className="relative flex flex-row w-full justify-between items-center py-2 px-6">
+    <div className="flex flex-col w-full h-[85vh] max-h-screen">
+      <div className="relative flex flex-row w-full justify-between items-center py-2 px-3 xs:px-4 sm:px-6">
         <span className="text-gray-900 dark:text-gray-200 text-h5 font-bold">
           {t("outputs")}
         </span>
@@ -307,7 +316,7 @@ function ExpectedResultFrame({
         />
         <div className="absolute left-[-100vw] bottom-0 w-[200vw] border-b border-solid border-gray-200 dark:border-gray-700"></div>
       </div>
-      <div className="md:hidden flex flex-col px-6 py-4 h-[calc(100%-64px)]">
+      <div className="md:hidden flex flex-col px-3 xs:px-4 sm:px-6 py-4 h-[calc(100%-64px)] overflow-hidden">
         <Tabs className="h-full">
           <Item key="userQuery" title={t("your_outputs")}>
             <UserQueryResults table={userResultTable} />
@@ -317,7 +326,7 @@ function ExpectedResultFrame({
           </Item>
         </Tabs>
       </div>
-      <div className="hidden md:flex flex-row pt-6 pb-10 px-6 gap-6 h-[calc(100%-64px)]">
+      <div className="hidden md:flex flex-row pt-6 pb-10 px-3 sm:px-6 gap-4 lg:gap-6 h-[calc(100%-64px)] overflow-hidden">
         <div className="flex flex-col w-[calc(50%-0.75rem)]">
           <span className="text-gray-900 dark:text-gray-200 text-p-lg font-bold mb-4">
             {t("your_outputs")}
@@ -387,7 +396,7 @@ function SolutionButtons({
             fill="fillContainer"
             onPress={onSelectNextTask}
             isDisabled={isLastIndex}
-            className="!bg-green-600 hover:!bg-green-700 active:!bg-green-800"
+            className="!from-emerald-500 !via-emerald-500 !to-teal-500 hover:!from-emerald-600 hover:!via-emerald-600 hover:!to-teal-600 !shadow-emerald-500/25 hover:!shadow-emerald-500/30"
           >
             {t("next_task")}
           </Button>
@@ -398,7 +407,7 @@ function SolutionButtons({
             size="big"
             fill="fillContainer"
             onPress={onAnswerCheck}
-            className="!bg-redalpha-100 hover:!bg-red-800 active:!bg-red-900"
+            className="!from-rose-500 !via-rose-500 !to-red-500 hover:!from-rose-600 hover:!via-rose-600 hover:!to-red-600 !shadow-rose-500/25 hover:!shadow-rose-500/30"
             isDisabled={true}
           >
             {t("error_info")}
@@ -419,78 +428,268 @@ export function SolutionEditor({
   textAreaValue,
   onChangeTextArea,
   onSelectNextTask,
+  errorMessage,
+  currentHintLevel,
+  solutionShown,
+  onUseHint,
+  onShowSolution,
+  onShowAdModal,
 }: SolutionEditorProps) {
   const { t } = useTranslation();
   const task = tasksList.find(({ id }) => id === selectedTask) || null;
   const taskIndex =
     tasksList.findIndex(({ id }) => id === selectedTask) || null;
 
+  // Left Panel Tabs Configuration
+  const leftPanelTabs = [
+    {
+      id: "description",
+      label: t("task_description") || "Description",
+      icon: "📝",
+      content: (
+        <div className="p-4 space-y-4">
+          <TaskDescription task={task} />
+
+          {/* AI Feedback in Description Tab */}
+          <AIFeedback
+            query={textAreaValue}
+            taskId={selectedTask || ''}
+            errorMessage={errorMessage}
+            isVisible={status === "INCORRECT"}
+          />
+
+          {/* Error Message */}
+          {errorMessage && status === "INCORRECT" && (
+            <div className="p-4 rounded-xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-800/40">
+              <div className="flex items-start gap-2">
+                <span className="text-rose-500">⚠️</span>
+                <p className="text-sm text-rose-700 dark:text-rose-300 font-medium">
+                  {errorMessage}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: "schema",
+      label: t("tables_description") || "Schema",
+      icon: "🗃️",
+      badge: taskTables.length,
+      content: (
+        <StructureTables taskTables={taskTables} className="h-full" />
+      ),
+    },
+    {
+      id: "hints",
+      label: t("hints.title") || "Hints",
+      icon: "💡",
+      badge: currentHintLevel > 0 ? currentHintLevel : undefined,
+      content: (
+        <div className="p-4">
+          {status !== "CORRECT" ? (
+            <HintPanel
+              task={task}
+              currentHintLevel={currentHintLevel}
+              solutionShown={solutionShown}
+              onHintUsed={onUseHint}
+              onShowSolution={onShowSolution}
+            />
+          ) : (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <span className="text-4xl mb-2 block">🎉</span>
+              <p>{t("correct_answer")}</p>
+            </div>
+          )}
+        </div>
+      ),
+    },
+  ];
+
+  // Editor Component
+  const EditorContent = (
+    <div className="h-full flex flex-col p-4">
+      <TaskTextarea
+        status={status}
+        value={textAreaValue}
+        onChangeValue={onChangeTextArea}
+      />
+    </div>
+  );
+
+  // Console/Output Component
+  const ConsoleContent = (
+    <div className="h-full flex flex-col bg-slate-900 dark:bg-black">
+      {/* Console Header */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700 bg-slate-800/50">
+        <div className="flex items-center gap-4">
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+            {t("outputs")}
+          </span>
+          {status === "CORRECT" && (
+            <span className="flex items-center gap-1 text-xs text-emerald-400">
+              <span>✓</span> {t("correct_answer")}
+            </span>
+          )}
+          {status === "INCORRECT" && (
+            <span className="flex items-center gap-1 text-xs text-rose-400">
+              <span>✗</span> {t("incorrect_answer")}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Console Content */}
+      <div className="flex-1 overflow-hidden">
+        <Tabs className="h-full console-tabs">
+          <Item key="userQuery" title={t("your_outputs")}>
+            <div className="h-full overflow-auto p-4 bg-slate-900 dark:bg-black">
+              <UserQueryResults table={userResultTable} />
+            </div>
+          </Item>
+          <Item key="expectedQuery" title={t("expected_output")}>
+            <div className="h-full overflow-auto p-4 bg-slate-900 dark:bg-black">
+              <ExpectedQueryResults table={expectedTable} />
+            </div>
+          </Item>
+        </Tabs>
+      </div>
+    </div>
+  );
+
+  // Action Buttons
+  const ActionButtons = (
+    <div className="flex items-center gap-3">
+      <ModalButton
+        buttonProps={{
+          variant: "tertiary",
+          size: "medium",
+          className: "text-sm",
+          children: (
+            <span className="flex items-center gap-2">
+              <span>👁️</span> {t("show_expected_result")}
+            </span>
+          ),
+        }}
+        isDismissable={true}
+        position="bottomFullWidth"
+      >
+        {(onClose) => (
+          <Dialog>
+            <ExpectedResultFrame
+              onClose={onClose}
+              expectedTable={expectedTable}
+              userResultTable={userResultTable}
+            />
+          </Dialog>
+        )}
+      </ModalButton>
+
+      <div className="flex-1" />
+
+      {(status === "UNKNOWN" || status === "PROCESSING") && (
+        <Button
+          variant="primary"
+          size="medium"
+          onPress={onAnswerCheck}
+          isDisabled={status === "PROCESSING"}
+          className="min-w-[120px] sm:min-w-[140px]"
+        >
+          <span className="flex items-center gap-2">
+            <span>▶️</span> {t("check_answer")}
+          </span>
+        </Button>
+      )}
+      {status === "CORRECT" && (
+        <Button
+          variant="primary"
+          size="medium"
+          onPress={onSelectNextTask}
+          isDisabled={taskIndex === tasksList.length - 1}
+          className="min-w-[120px] sm:min-w-[140px] !from-emerald-500 !via-emerald-500 !to-teal-500 hover:!from-emerald-600 hover:!via-emerald-600 hover:!to-teal-600"
+        >
+          <span className="flex items-center gap-2">
+            <span>→</span> {t("next_task")}
+          </span>
+        </Button>
+      )}
+      {status === "INCORRECT" && (
+        <Button
+          variant="primary"
+          size="medium"
+          onPress={onAnswerCheck}
+          className="min-w-[120px] sm:min-w-[140px] !from-rose-500 !via-rose-500 !to-red-500"
+        >
+          <span className="flex items-center gap-2">
+            <span>🔄</span> {t("check_answer")}
+          </span>
+        </Button>
+      )}
+    </div>
+  );
+
   return (
     <>
-      <div className="hidden md:grid grid-cols-[auto_7fr_4fr_auto] w-full h-[calc(100vh-128px)]">
-        <div className="w-[calc((100vw-theme(screens.lg))/2)]"></div>
-        <div className="w-full h-[calc(100vh-128px)] flex flex-col px-6 py-8">
-          <TaskDescription task={task} />
-          <TaskTextarea
-            status={status}
-            value={textAreaValue}
-            onChangeValue={onChangeTextArea}
-          />
-          <SolutionButtons
-            expectedTable={expectedTable}
-            userResultTable={userResultTable}
-            onAnswerCheck={onAnswerCheck}
-            status={status}
-            onSelectNextTask={onSelectNextTask}
-            isLastIndex={taskIndex === tasksList.length - 1}
-          />
-        </div>
-        <div className="w-full bg-bluealpha-8 dark:bg-gray-1000 pt-2 h-[calc(100vh-128px)] border-l border-l-gray-100 dark:border-l-gray-800">
-          <StructureTables taskTables={taskTables} />
-        </div>
-        <div className="w-[calc((100vw-theme(screens.lg))/2)] bg-bluealpha-8 dark:bg-gray-1000"></div>
-      </div>
-      <div className="flex md:hidden flex-col my-8 px-6 lg:container w-full h-[calc(100vh-128px)]">
-        <TaskDescription task={task} />
-        <ModalButton
-          buttonProps={{
-            variant: "secondary",
-            size: "medium",
-            fill: "fillContainer",
-            className: "mb-6",
-            rightIcon: (
-              <Chip aria-label={t("amount_of_tables")}>
-                {taskTables.length}
-              </Chip>
-            ),
-            children: t("show_tables_structure"),
-          }}
-          isDismissable={true}
-          position="bottomFullWidth"
-          className="bg-blue-100"
-        >
-          {(onClose) => (
-            <Dialog>
-              <StructureTables
-                taskTables={taskTables}
-                onClose={onClose}
-                className="max-h-[85vh]"
+      {/* Desktop IDE Layout */}
+      <div className="hidden lg:block h-[calc(100vh-120px)]">
+        <IDELayout
+          leftPanel={<TabPanel tabs={leftPanelTabs} defaultTab="description" />}
+          rightPanel={
+            <div className="flex flex-col h-full">
+              <ResizablePanel
+                topContent={EditorContent}
+                bottomContent={ConsoleContent}
+                defaultBottomHeight={250}
+                minBottomHeight={120}
+                maxBottomHeight={450}
               />
-            </Dialog>
-          )}
-        </ModalButton>
-        <TaskTextarea
-          status={status}
-          value={textAreaValue}
-          onChangeValue={onChangeTextArea}
+              {/* Action Bar */}
+              <div className="border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+                {ActionButtons}
+              </div>
+            </div>
+          }
         />
-        <SolutionButtons
-          expectedTable={expectedTable}
-          userResultTable={userResultTable}
-          onAnswerCheck={onAnswerCheck}
-          status={status}
-          onSelectNextTask={onSelectNextTask}
-          isLastIndex={taskIndex === tasksList.length - 1}
+      </div>
+
+      {/* Tablet Layout */}
+      <div className="hidden md:block lg:hidden h-[calc(100vh-120px)]">
+        <div className="flex flex-col h-full">
+          <div className="h-[45%] border-b border-gray-200 dark:border-slate-700">
+            <TabPanel tabs={leftPanelTabs} defaultTab="description" />
+          </div>
+          <div className="flex-1 flex flex-col">
+            <div className="flex-1 p-4">
+              <TaskTextarea
+                status={status}
+                value={textAreaValue}
+                onChangeValue={onChangeTextArea}
+              />
+            </div>
+            <div className="h-48 border-t border-gray-200 dark:border-slate-700">
+              {ConsoleContent}
+            </div>
+            <div className="border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3">
+              {ActionButtons}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="block md:hidden">
+        <MobileIDELayout
+          tabs={leftPanelTabs}
+          editor={
+            <TaskTextarea
+              status={status}
+              value={textAreaValue}
+              onChangeValue={onChangeTextArea}
+            />
+          }
+          console={ConsoleContent}
+          actions={ActionButtons}
         />
       </div>
     </>

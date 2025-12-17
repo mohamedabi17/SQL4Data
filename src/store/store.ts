@@ -13,6 +13,7 @@ import {
   INITIAL_STATE as taskInitialState,
   taskReducer,
 } from "./reducers/taskReducer";
+import gameReducer from "./reducers/gameReducer";
 import { applyTheme } from "./listeners/themeListener";
 import { initI18n } from "../i18n/i18n";
 import "./listeners/languageListener";
@@ -34,7 +35,7 @@ export const createAppAsyncThunk =
     rejectValue: string;
   }>();
 
-const LOCAL_STORAGE_STATES = ["settings", "solutions", "task.selected"];
+const LOCAL_STORAGE_STATES = ["settings", "solutions", "task.selected", "game"];
 const LOCAL_STORAGE_NAMESPACE = "sql_trainer";
 
 const getPreloadedState = () => {
@@ -57,6 +58,7 @@ const reducer = {
   settings: settingsReducer,
   task: taskReducer,
   solutions: solutionsReducer,
+  game: gameReducer,
 };
 
 export const store = configureStore({

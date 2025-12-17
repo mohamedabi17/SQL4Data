@@ -1,5 +1,7 @@
 import { accounting } from "./accounting";
 import { music } from "./music";
+import { ecommerce } from "./ecommerce";
+import { datawarehouse } from "./datawarehouse";
 
 export type DbColumnAttributeType = "PK" | "FK";
 
@@ -28,5 +30,11 @@ export interface Database {
   initSql?: string;
 }
 
-export type DatabaseId = "accounting" | "music";
-export const databases: { [_ in DatabaseId]: Database } = { accounting, music };
+export type DatabaseId = "accounting" | "music" | "ecommerce" | "datawarehouse";
+export const databases: { [_ in DatabaseId]: Database } = {
+  accounting,
+  music,
+  ecommerce,
+  datawarehouse,
+};
+

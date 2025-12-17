@@ -16,8 +16,8 @@ interface TabSelectorProps extends AriaTabListProps<object> {
 }
 
 const SELECTED_CLASS =
-  "bg-gray-0 dark:bg-gray-600 shadow-[0_2px_4px_rgba(0,0,0,0.12)] text-gray-900 dark:text-gray-100 rounded-md";
-const NON_SELECTED_CLASS = "bg-transparent text-gray-800 dark:text-gray-200";
+  "bg-white dark:bg-slate-700 shadow-md text-indigo-700 dark:text-indigo-300 rounded-lg font-semibold";
+const NON_SELECTED_CLASS = "bg-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/50 dark:hover:bg-slate-700/50 rounded-lg transition-all duration-200";
 
 export function Tabs({ className = "", ...props }: TabSelectorProps) {
   let state = useTabListState(props);
@@ -26,7 +26,7 @@ export function Tabs({ className = "", ...props }: TabSelectorProps) {
   return (
     <div className={`flex flex-col ${className} ${props.orientation || ""}`}>
       <div
-        className="bg-gray-100 dark:bg-gray-1000 rounded-lg p-1 flex flex-row gap-0.5 w-full h-fit"
+        className="bg-gray-100/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl p-1.5 flex flex-row gap-1 w-full h-fit border border-gray-200/50 dark:border-slate-700/50"
         {...tabListProps}
         ref={ref}
       >
@@ -66,8 +66,8 @@ function Tab({ item, state, orientation }: TabProps) {
 
   return (
     <div
-      className={`overflow-x-auto flex-1 text-ellipsis text-p-md font-semibold\
-                  px-2.5 py-1.5 text-center whitespace-nowrap ${className} ${focusOutlineClass}`}
+      className={`overflow-x-auto flex-1 text-ellipsis text-p-md cursor-pointer\
+                  px-3 py-2 text-center whitespace-nowrap ${className} ${focusOutlineClass}`}
       {...tabProps}
       {...focusProps}
       ref={ref}

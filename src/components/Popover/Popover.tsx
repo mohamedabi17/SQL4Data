@@ -35,9 +35,10 @@ export function Popover(props: PopoverProps) {
       <div
         {...popoverProps}
         {...focusProps}
-        className={`rounded-lg p-1 border \
-        bg-gray-0 border-gray-100 text-gray-900 \
-        dark:bg-gray-700 dark:border-gray-600 dark:text-gray-50 ${focusOutlineClass}`}
+        className={`rounded-xl p-1.5 border shadow-xl backdrop-blur-xl \
+        bg-white/95 border-gray-200/60 text-gray-800 \
+        dark:bg-slate-800/95 dark:border-slate-700/60 dark:text-gray-100 \
+        animate-scale-in ${focusOutlineClass}`}
         ref={popoverRef as RefObject<HTMLDivElement>}
       >
         {!isNonModal && <DismissButton onDismiss={state.close} />}

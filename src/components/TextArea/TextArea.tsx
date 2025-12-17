@@ -13,32 +13,30 @@ interface TextAreaProps extends AriaTextFieldOptions<"textarea"> {
 
 const statusToClassMap: { [_ in TextAreaStatus]: string } = {
   DEFAULT:
-    "shadow-[0_0_0_1px_theme(colors.gray.200)] focus:shadow-[0_0_0_2px_rgba(54,73,252,0.64),_inset_0_1px_6px_rgba(0,0,0,0.16)] bg-gray-50 \
-    placeholder:text-gray-600 text-gray-1000 \
-    border-transparent \
+    "shadow-sm border border-gray-200/60 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 bg-white/80 backdrop-blur-sm \
+    placeholder:text-gray-400 text-gray-800 \
+    transition-all duration-200 \
     \
-    dark:shadow-[0_0_0_1px_theme(colors.gray.700)] dark:focus:shadow-[0_0_0_2px_rgba(113,126,255,0.64),_inset_0_1px_6px_rgba(0,0,0,0.16)] dark:bg-gray-1000 \
-    dark:placeholder:text-gray-400 dark:text-gray-50",
+    dark:border-slate-700/60 dark:focus:border-indigo-500 dark:focus:ring-indigo-400/20 dark:bg-slate-900/80 \
+    dark:placeholder:text-slate-500 dark:text-gray-100",
   SUCCESS:
-    "shadow-[0_0_0_1px_theme(colors.greenalpha.24)] bg-greenalpha-8 \
-    placeholder:text-gray-600 text-gray-1000 \
-    border-green-100 \
+    "shadow-md ring-2 ring-emerald-500/30 border border-emerald-300/60 bg-emerald-50/50 backdrop-blur-sm \
+    placeholder:text-gray-500 text-gray-800 \
+    transition-all duration-200 \
     \
-    dark:shadow-[0_0_0_1px_theme(colors.greenalpha.32)] dark:bg-greenalpha-300 \
-    dark:placeholder:text-gray-400 dark:text-gray-50 \
-    dark:border-green-900",
-  FAIL: "shadow-[0_0_0_1px_theme(colors.redalpha.24)] bg-redalpha-8 \
-    placeholder:text-gray-600 text-gray-1000 \
-    border-red-100 \
+    dark:ring-emerald-500/20 dark:border-emerald-600/40 dark:bg-emerald-950/30 \
+    dark:placeholder:text-slate-400 dark:text-gray-100",
+  FAIL: "shadow-md ring-2 ring-rose-500/30 border border-rose-300/60 bg-rose-50/50 backdrop-blur-sm \
+    placeholder:text-gray-500 text-gray-800 \
+    transition-all duration-200 \
     \
-    dark:shadow-[0_0_0_1px_theme(colors.redalpha.32)] dark:bg-redalpha-300 \
-    dark:placeholder:text-gray-400 dark:text-gray-50 \
-    dark:border-red-900",
+    dark:ring-rose-500/20 dark:border-rose-600/40 dark:bg-rose-950/30 \
+    dark:placeholder:text-slate-400 dark:text-gray-100",
 };
 const statusToDescriptionTextClassMap: { [_ in TextAreaStatus]: string } = {
   DEFAULT: "",
-  SUCCESS: "text-green-700 dark:text-green-200",
-  FAIL: "text-red-700 dark:text-red-100",
+  SUCCESS: "text-emerald-700 dark:text-emerald-300 font-medium",
+  FAIL: "text-rose-700 dark:text-rose-300 font-medium",
 };
 
 export function TextArea(props: TextAreaProps) {
@@ -82,11 +80,11 @@ export function TextArea(props: TextAreaProps) {
         >
           {status === "SUCCESS" && (
             <CheckCircleIcon
-              className={`w-5 h-5 text-green-600 dark:text-green-300`}
+              className={`w-5 h-5 text-emerald-600 dark:text-emerald-400`}
             />
           )}
           {status === "FAIL" && (
-            <XCircleIcon className={`w-5 h-5 text-red-500 dark:text-red-300`} />
+            <XCircleIcon className={`w-5 h-5 text-rose-500 dark:text-rose-400`} />
           )}
           <span className={descriptionTextClass}>{statusDescription}</span>
         </div>

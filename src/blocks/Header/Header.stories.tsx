@@ -7,7 +7,7 @@ export default {
   argTypes: {
     onLanguageSelect: {},
     onThemeButtonClick: {},
-    onSupportMeClick: {},
+    onLoginClick: {},
   },
   parameters: {
     layout: "fullscreen",
@@ -20,8 +20,11 @@ const Template: ComponentStory<typeof Header> = (args, context) => (
     onLanguageSelect={args.onLanguageSelect}
     onThemeButtonClick={args.onThemeButtonClick}
     selectedTheme={context.globals.theme}
+    onLoginClick={args.onLoginClick}
   />
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  onLoginClick: () => console.log('Login clicked'),
+};
