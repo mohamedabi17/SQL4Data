@@ -11,7 +11,7 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://sql4data-backend.onrender.com"
+    "VITE_API_URL": "https://sql4data-2.onrender.com"
   },
   "headers": [
     {
