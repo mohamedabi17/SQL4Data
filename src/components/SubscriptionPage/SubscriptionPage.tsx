@@ -135,10 +135,36 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
     setIsProcessing(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert('Payment integration coming soon! This is a demo.');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8001';
+      const token = localStorage.getItem('sql4data_access_token');
+      
+      // Determine the price ID based on billing period
+      const priceType = billingPeriod === 'yearly' ? 'yearly' : 'monthly';
+      
+      const response = await fetch(`${apiUrl}/api/payments/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          price_type: priceType
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
+
+      const data = await response.json();
+      
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      }
     } catch (error) {
       console.error('Subscription error:', error);
+      alert('Failed to start checkout. Please try again.');
     } finally {
       setIsProcessing(false);
     }
