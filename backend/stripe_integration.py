@@ -16,8 +16,8 @@ STRIPE_PRICE_MONTHLY = os.getenv("STRIPE_PRICE_MONTHLY")  # €4.99/month
 STRIPE_PRICE_YEARLY = os.getenv("STRIPE_PRICE_YEARLY")    # €49.90/year
 
 # Success and cancel URLs
-SUCCESS_URL = os.getenv("FRONTEND_URL", "http://localhost:5173") + "/payment/success"
-CANCEL_URL = os.getenv("FRONTEND_URL", "http://localhost:5173") + "/payment/cancelled"
+SUCCESS_URL = os.getenv("FRONTEND_URL", "https://sql-4-data.vercel.app/") + "/payment/success"
+CANCEL_URL = os.getenv("FRONTEND_URL", "https://sql-4-data.vercel.app/") + "/payment/cancelled"
 
 
 def create_checkout_session(email: str, billing_cycle: str = "yearly"):
@@ -66,7 +66,7 @@ def create_customer_portal_session(customer_id: str):
     try:
         portal_session = stripe.billing_portal.Session.create(
             customer=customer_id,
-            return_url=os.getenv("FRONTEND_URL", "http://localhost:5173") + "/profile",
+            return_url=os.getenv("FRONTEND_URL", "https://sql-4-data.vercel.app/    ") + "/profile",
         )
         return portal_session
     except Exception as e:
