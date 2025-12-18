@@ -3,7 +3,7 @@
  * Handles OAuth login, token management, and user operations
  */
 
-const API_BASE_URL = 'http://localhost:8001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
 
 // Token storage keys
 const ACCESS_TOKEN_KEY = 'sql4data_access_token';

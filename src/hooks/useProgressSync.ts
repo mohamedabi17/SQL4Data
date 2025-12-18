@@ -258,8 +258,9 @@ export function useProgressSync() {
 
       const token = localStorage.getItem('sql4data_access_token');
       if (token) {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8001';
         navigator.sendBeacon(
-          'http://localhost:8001/api/progress/stats',
+          `${apiUrl}/api/progress/stats`,
           new Blob([JSON.stringify(stats)], { type: 'application/json' })
         );
       }
