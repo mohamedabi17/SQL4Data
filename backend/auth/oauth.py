@@ -75,12 +75,12 @@ async def oauth_login(provider: str, redirect_uri: Optional[str] = None):
     state = secrets.token_urlsafe(32)
     oauth_states[state] = {
         "provider": provider,
-        "redirect_uri": redirect_uri or "http://localhost:5173",
+        "redirect_uri": redirect_uri or "http://localhost:5173,https://sql-4-data.vercel.app/",
         "created_at": datetime.utcnow()
     }
     
     # Build authorization URL
-    callback_url = f"{settings.API_URL if hasattr(settings, 'API_URL') else 'http://localhost:8000'}/auth/callback/{provider}"
+    callback_url = f"{settings.API_URL if hasattr(settings, 'API_URL') else 'http://localhost:8000,https://sql4data-2.onrender.com'}/auth/callback/{provider}"
     
     params = {
         "client_id": config["client_id"],
@@ -322,7 +322,7 @@ async def oauth_callback(
     refresh_token = create_refresh_token(user.id)
     
     # Redirect back to frontend with token
-    frontend_url = state_data.get("redirect_uri", "http://localhost:5173")
+    frontend_url = state_data.get("redirect_uri", "http://localhost:5173,https://sql-4-data.vercel.app/")
     redirect_url = f"{frontend_url}?token={access_token}&refresh={refresh_token}"
     
     return RedirectResponse(url=redirect_url)

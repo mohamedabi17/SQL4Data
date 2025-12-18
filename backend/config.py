@@ -37,11 +37,11 @@ class Settings(BaseSettings):
     STRIPE_PRICE_YEARLY: str = "price_yearly_49_90_eur"   # Replace with actual Stripe Price ID
     
     # API URL (for OAuth callbacks)
-    API_URL: str = "http://localhost:8001"
-    FRONTEND_URL: str = "http://localhost:5173"
+    API_URL: str = "http://localhost:8001,https://sql4data-2.onrender.com"
+    FRONTEND_URL: str = "http://localhost:5173,https://sql-4-data.vercel.app/"
     
     # CORS
-    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,http://localhost:5174"
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,http://localhost:5174,https://sql-4-data.vercel.app/"
     
     # Environment
     ENVIRONMENT: str = "development"
