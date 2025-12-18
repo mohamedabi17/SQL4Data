@@ -72,7 +72,7 @@ function TopicBlock({
           const isCompleted = completedTasks.includes(task.id);
           const requiredXP = getRequiredXP(index);
           const isLocked = totalXP < requiredXP && !isCompleted;
-          
+
           return (
             <button
               key={task.id}

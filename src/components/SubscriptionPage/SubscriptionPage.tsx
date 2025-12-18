@@ -40,11 +40,10 @@ function PlanCard({
 }: PlanCardProps) {
   return (
     <div
-      className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 ${
-        isPopular
+      className={`relative p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 ${isPopular
           ? 'border-[#442a65] dark:border-purple-500 shadow-xl shadow-[#442a65]/20'
           : 'border-gray-200 dark:border-slate-700'
-      } ${isPremium ? 'bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10' : 'bg-white dark:bg-slate-900'}`}
+        } ${isPremium ? 'bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10' : 'bg-white dark:bg-slate-900'}`}
     >
       {isPopular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 sm:px-4 py-1 bg-gradient-to-r from-[#442a65] to-[#87888a] text-white text-[10px] sm:text-xs font-bold rounded-full whitespace-nowrap">
@@ -66,11 +65,10 @@ function PlanCard({
             <span className={`text-sm flex-shrink-0 ${feature.included ? 'text-emerald-500' : 'text-gray-300 dark:text-gray-600'}`}>
               {feature.included ? '✓' : '✗'}
             </span>
-            <span className={`text-xs sm:text-sm ${
-              feature.included 
-                ? 'text-gray-700 dark:text-gray-300' 
+            <span className={`text-xs sm:text-sm ${feature.included
+                ? 'text-gray-700 dark:text-gray-300'
                 : 'text-gray-400 dark:text-gray-500 line-through'
-            }`}>
+              }`}>
               {feature.text}
             </span>
           </li>
@@ -135,7 +133,7 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
     }
 
     setIsProcessing(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       alert('Payment integration coming soon! This is a demo.');
@@ -179,15 +177,13 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
             </span>
             <button
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-              className={`relative w-12 sm:w-14 h-6 sm:h-8 rounded-full transition-colors flex-shrink-0 ${
-                billingCycle === 'yearly' 
-                  ? 'bg-gradient-to-r from-[#442a65] to-[#87888a]' 
+              className={`relative w-12 sm:w-14 h-6 sm:h-8 rounded-full transition-colors flex-shrink-0 ${billingCycle === 'yearly'
+                  ? 'bg-gradient-to-r from-[#442a65] to-[#87888a]'
                   : 'bg-gray-200 dark:bg-slate-700'
-              }`}
+                }`}
             >
-              <div className={`absolute top-0.5 sm:top-1 w-5 sm:w-6 h-5 sm:h-6 bg-white rounded-full shadow-md transition-all duration-200 ${
-                billingCycle === 'yearly' ? 'left-6 sm:left-7' : 'left-0.5 sm:left-1'
-              }`} />
+              <div className={`absolute top-0.5 sm:top-1 w-5 sm:w-6 h-5 sm:h-6 bg-white rounded-full shadow-md transition-all duration-200 ${billingCycle === 'yearly' ? 'left-6 sm:left-7' : 'left-0.5 sm:left-1'
+                }`} />
             </button>
             <span className={`text-xs sm:text-sm font-medium ${billingCycle === 'yearly' ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
               {t('subscription.yearly')}
@@ -210,7 +206,7 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
               period={t('subscription.forever')}
               features={freePlanFeatures}
               buttonText={t('subscription.current_plan')}
-              onSelect={() => {}}
+              onSelect={() => { }}
               disabled={true}
             />
 
@@ -223,9 +219,9 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
               isPopular={true}
               isPremium={true}
               buttonText={
-                isPremium 
+                isPremium
                   ? t('subscription.current_plan')
-                  : isProcessing 
+                  : isProcessing
                     ? t('subscription.processing')
                     : t('subscription.get_premium')
               }
@@ -244,7 +240,7 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
               </span>
             </p>
           )}
-          
+
           {/* Monthly price note */}
           {billingCycle === 'monthly' && !isPremium && (
             <p className="mt-3 sm:mt-4 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400">

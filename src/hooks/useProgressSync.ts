@@ -89,7 +89,7 @@ export function useProgressSync() {
     try {
       syncInProgressRef.current = true;
       const serverData = await getUserProgress();
-      
+
       if (serverData) {
         const progressData = serverToLocalProgress(serverData.progress);
         const statsData = serverToLocalStats(serverData.stats);
@@ -103,11 +103,11 @@ export function useProgressSync() {
         // Merge task attempts - keep local attempts that aren't on server
         const localAttempts = gameState.taskAttempts;
         const serverAttempts = progressData.taskAttempts || {};
-        
+
         const mergedAttempts = { ...localAttempts };
         for (const [taskId, serverAttempt] of Object.entries(serverAttempts)) {
           const localAttempt = localAttempts[taskId];
-          
+
           // If server has completion and local doesn't, use server
           // If both have completion, use server
           // If only local has it, keep local
@@ -208,7 +208,7 @@ export function useProgressSync() {
 
       // Save stats
       await saveStatsToServer();
-      
+
       lastSyncRef.current = Date.now();
     } catch (error) {
       console.error('Failed to sync all progress:', error);

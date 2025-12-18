@@ -247,23 +247,23 @@ function AppContent() {
       {/* Main Content */}
       <main className="flex-1 w-full overflow-x-hidden">
         <div className="w-full lg:container mx-auto">
-        <SolutionEditor
-          selectedTask={selectedTask}
-          taskTables={taskTables}
-          expectedTable={expectedResult}
-          userResultTable={lastAnswerResult}
-          status={solution?.status || "UNKNOWN"}
-          textAreaValue={solution?.query || ""}
-          onChangeTextArea={onChangeTextArea}
-          onAnswerCheck={onAnswerCheck}
-          onSelectNextTask={onSelectNextTask}
-          errorMessage={solution?.error}
-          currentHintLevel={gameState.currentHintLevel}
-          solutionShown={gameState.currentSolutionShown}
-          onUseHint={onUseHint}
-          onShowSolution={onShowSolution}
-          onShowAdModal={onShowAdModal}
-        />
+          <SolutionEditor
+            selectedTask={selectedTask}
+            taskTables={taskTables}
+            expectedTable={expectedResult}
+            userResultTable={lastAnswerResult}
+            status={solution?.status || "UNKNOWN"}
+            textAreaValue={solution?.query || ""}
+            onChangeTextArea={onChangeTextArea}
+            onAnswerCheck={onAnswerCheck}
+            onSelectNextTask={onSelectNextTask}
+            errorMessage={solution?.error}
+            currentHintLevel={gameState.currentHintLevel}
+            solutionShown={gameState.currentSolutionShown}
+            onUseHint={onUseHint}
+            onShowSolution={onShowSolution}
+            onShowAdModal={onShowAdModal}
+          />
         </div>
       </main>
 

@@ -204,8 +204,8 @@ export function MobileIDELayout({ tabs, editor, console: consoleOutput, actions 
         <button
           onClick={() => setActiveView("context")}
           className={`flex-1 py-3 text-sm font-medium transition-colors ${activeView === "context"
-              ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-              : "text-gray-600 dark:text-gray-400"
+            ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+            : "text-gray-600 dark:text-gray-400"
             }`}
         >
           📋 Context
@@ -213,8 +213,8 @@ export function MobileIDELayout({ tabs, editor, console: consoleOutput, actions 
         <button
           onClick={() => setActiveView("editor")}
           className={`flex-1 py-3 text-sm font-medium transition-colors ${activeView === "editor"
-              ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-              : "text-gray-600 dark:text-gray-400"
+            ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+            : "text-gray-600 dark:text-gray-400"
             }`}
         >
           💻 Editor

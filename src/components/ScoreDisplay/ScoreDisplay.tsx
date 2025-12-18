@@ -50,13 +50,13 @@ export function ScoreDisplay({ totalXP, currentLevel, currentStreak, currentPena
       {/* Current Penalty Badge */}
       {currentPenalty > 0 && (
         <div className={`hidden xs:flex items-center gap-1 px-1.5 xs:px-2 py-0.5 xs:py-1 rounded-md xs:rounded-lg animate-pulse ${currentPenalty >= 100
-            ? "bg-gradient-to-r from-rose-100 to-red-100 dark:from-rose-900/30 dark:to-red-900/30"
-            : "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30"
+          ? "bg-gradient-to-r from-rose-100 to-red-100 dark:from-rose-900/30 dark:to-red-900/30"
+          : "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30"
           }`}>
           <span className="text-xs xs:text-sm">{currentPenalty >= 100 ? "⚠️" : "📉"}</span>
           <span className={`text-[10px] xs:text-xs font-bold ${currentPenalty >= 100
-              ? "text-rose-600 dark:text-rose-400"
-              : "text-amber-600 dark:text-amber-400"
+            ? "text-rose-600 dark:text-rose-400"
+            : "text-amber-600 dark:text-amber-400"
             }`}>
             {currentPenalty >= 100 ? "0%" : `-${currentPenalty}%`}
           </span>

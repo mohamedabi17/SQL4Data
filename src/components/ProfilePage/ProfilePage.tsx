@@ -45,7 +45,7 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
 
   const currentLevel = getLevelInfo(gameState.currentLevel);
   const nextLevelXP = getXPForNextLevel(gameState.currentLevel);
-  const xpProgress = gameState.currentLevel < LEVELS.length 
+  const xpProgress = gameState.currentLevel < LEVELS.length
     ? ((gameState.totalXP - currentLevel.xpRequired) / (nextLevelXP - currentLevel.xpRequired)) * 100
     : 100;
 
@@ -94,7 +94,7 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
                 </div>
               )}
               {/* Level Badge */}
-              <div 
+              <div
                 className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold text-white border-2 border-white shadow-lg"
                 style={{ backgroundColor: currentLevel.color }}
               >
@@ -131,7 +131,7 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
               <span className="truncate ml-2">{gameState.currentLevel < LEVELS.length ? `${nextLevelXP - gameState.totalXP} XP to Lvl ${gameState.currentLevel + 1}` : 'Max Level'}</span>
             </div>
             <div className="h-1.5 sm:h-2 bg-white/20 rounded-full overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full transition-all duration-500"
                 style={{ width: `${xpProgress}%` }}
               />
@@ -149,11 +149,10 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 min-w-0 px-2 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-                activeTab === tab.id
+              className={`flex-1 min-w-0 px-2 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${activeTab === tab.id
                   ? 'text-[#442a65] dark:text-purple-400 border-b-2 border-[#442a65] dark:border-purple-400'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
+                }`}
             >
               <span className="mr-1">{tab.icon}</span>
               <span className="text-[10px] xs:text-xs sm:text-sm">{tab.label}</span>
@@ -180,7 +179,7 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
                     </span>
                   </div>
                   <div className="h-2 sm:h-3 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-gradient-to-r from-[#442a65] to-[#87888a] rounded-full transition-all duration-500"
                       style={{ width: `${progressPercent}%` }}
                     />
@@ -245,11 +244,10 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
                 return (
                   <div
                     key={badge.id}
-                    className={`p-3 sm:p-4 rounded-xl border-2 text-center transition-all duration-200 ${
-                      isUnlocked
+                    className={`p-3 sm:p-4 rounded-xl border-2 text-center transition-all duration-200 ${isUnlocked
                         ? 'bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-300 dark:border-amber-700'
                         : 'bg-gray-50 dark:bg-slate-800/50 border-gray-200 dark:border-slate-700 opacity-50'
-                    }`}
+                      }`}
                   >
                     <span className={`text-2xl sm:text-4xl ${!isUnlocked && 'grayscale'}`}>
                       {isUnlocked ? badge.icon : '🔒'}
@@ -273,7 +271,7 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
                 <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   {t('profile.account')}
                 </h3>
-                
+
                 {isAuthenticated && user ? (
                   <div className="space-y-3 sm:space-y-4">
                     <div className="p-3 sm:p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50">
@@ -282,16 +280,15 @@ export function ProfilePage({ isOpen, onClose, onUpgrade }: ProfilePageProps) {
                           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('profile.email')}</p>
                           <p className="font-medium text-sm sm:text-base text-gray-900 dark:text-white truncate">{user.email}</p>
                         </div>
-                        <span className={`self-start sm:self-auto px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
-                          isPremium 
+                        <span className={`self-start sm:self-auto px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${isPremium
                             ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-white'
                             : 'bg-gray-200 dark:bg-slate-700 text-gray-600 dark:text-gray-300'
-                        }`}>
+                          }`}>
                           {isPremium ? 'Premium' : 'Free'}
                         </span>
                       </div>
                     </div>
-                    
+
                     <Button
                       variant="secondary"
                       size="small"
