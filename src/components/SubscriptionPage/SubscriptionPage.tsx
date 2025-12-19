@@ -90,7 +90,7 @@ function PlanCard({
 
 export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
   const { t } = useTranslation();
-  const { isAuthenticated, isPremium } = useAuth();
+  const { isAuthenticated, isPremium, user } = useAuth();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly'); // Default to yearly
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -136,22 +136,20 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8001';
-      const token = localStorage.getItem('sql4data_access_token');
 
-      if (!token) {
-        throw new Error('Please log in to subscribe');
+      // Get user email from auth context
+      if (!user?.email) {
+        throw new Error('User email not found. Please log in again.');
       }
 
-      // Determine the price ID based on billing period
-      const priceType = billingCycle === 'yearly' ? 'yearly' : 'monthly';
-
-      const response = await fetch(`${apiUrl}/api/stripe/create-checkout-session`, {
+      // Use the existing /api/payment endpoint (deployed on Render)
+      const response = await fetch(`${apiUrl}/api/payment/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
+          email: user.email,
           billing_cycle: billingCycle
         })
       });
@@ -163,8 +161,10 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
 
       const data = await response.json();
 
-      // Redirect to Stripe Checkout
-      if (data.checkout_url) {
+      // Redirect to Stripe Checkout (deployed version returns 'url' field)
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.checkout_url) {
         window.location.href = data.checkout_url;
       } else {
         throw new Error('No checkout URL received');
