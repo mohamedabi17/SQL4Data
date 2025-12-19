@@ -176,18 +176,6 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
       setIsProcessing(false);
     }
   };
-      
-      // Redirect to Stripe Checkout
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error('Subscription error:', error);
-      alert('Failed to start checkout. Please try again.');
-    } finally {
-      setIsProcessing(false);
-    }
-  };
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-start justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
