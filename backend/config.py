@@ -32,9 +32,10 @@ class Settings(BaseSettings):
     STRIPE_PUBLISHABLE_KEY: str = ""
     STRIPE_WEBHOOK_SECRET: str = ""
     
+
     # Stripe Price IDs (€4.99 model)
-    STRIPE_PRICE_MONTHLY: str = "price_monthly_4_99_eur"  # Replace with actual Stripe Price ID
-    STRIPE_PRICE_YEARLY: str = "price_yearly_49_90_eur"   # Replace with actual Stripe Price ID
+    STRIPE_PRICE_MONTHLY: str = "price_1SfoxZG3tobHtbH8Wa1daETR"  # Replace with actual Stripe Price ID
+    STRIPE_PRICE_YEARLY: str = "price_1SfoygG3tobHtbH89sdxdY5C"   # Replace with actual Stripe Price ID
     
     # API URL (for OAuth callbacks)
     API_URL: str = "https://sql4data-2.onrender.com"
@@ -64,3 +65,6 @@ class Settings(BaseSettings):
 @lru_cache()
 def get_settings() -> Settings:
     return Settings()
+
+
+
