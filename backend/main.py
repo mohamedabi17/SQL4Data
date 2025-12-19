@@ -22,6 +22,7 @@ from models import Task, UserQueryExecution
 from auth.oauth import oauth_router
 from auth.ads import ads_router
 from auth.progress import progress_router
+from auth.stripe_payment import stripe_router
 from auth.models import User, Subscription, DailyLimit, AdUnlock, UserProgress, UserStats
 
 # Import payment router
@@ -53,6 +54,7 @@ app.add_middleware(
 app.include_router(oauth_router)
 app.include_router(ads_router)
 app.include_router(progress_router)
+app.include_router(stripe_router)
 app.include_router(payment_router)
 
 

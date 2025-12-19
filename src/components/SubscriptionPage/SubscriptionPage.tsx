@@ -145,14 +145,14 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
       // Determine the price ID based on billing period
       const priceType = billingCycle === 'yearly' ? 'yearly' : 'monthly';
 
-      const response = await fetch(`${apiUrl}/api/payments/create-checkout-session`, {
+      const response = await fetch(`${apiUrl}/api/stripe/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          price_type: priceType
+          billing_cycle: billingCycle
         })
       });
 
@@ -164,8 +164,8 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
       const data = await response.json();
 
       // Redirect to Stripe Checkout
-      if (data.url) {
-        window.location.href = data.url;
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
       } else {
         throw new Error('No checkout URL received');
       }
