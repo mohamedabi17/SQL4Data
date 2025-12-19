@@ -138,6 +138,10 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8001';
       const token = localStorage.getItem('sql4data_access_token');
       
+      if (!token) {
+        throw new Error('Please log in to subscribe');
+      }
+      
       // Determine the price ID based on billing period
       const priceType = billingPeriod === 'yearly' ? 'yearly' : 'monthly';
       
@@ -153,10 +157,25 @@ export function SubscriptionPage({ isOpen, onClose }: SubscriptionPageProps) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create checkout session');
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        throw new Error(errorData.detail || 'Failed to create checkout session');
       }
 
       const data = await response.json();
+      
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received');
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert(`Failed to start checkout: ${error instanceof Error ? error.message : 'Please try again'}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
       
       // Redirect to Stripe Checkout
       if (data.url) {
