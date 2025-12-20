@@ -20,6 +20,11 @@ from config import get_settings
 settings = get_settings()
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+# Verify Stripe key is loaded
+if not stripe.api_key or not stripe.api_key.startswith(('sk_test_', 'sk_live_')):
+    logger.error(f"Invalid Stripe API key detected: {stripe.api_key[:10] if stripe.api_key else 'None'}...")
+    raise ValueError("STRIPE_SECRET_KEY environment variable not properly configured")
+
 logger = logging.getLogger(__name__)
 
 stripe_router = APIRouter(prefix="/api/stripe", tags=["Payments"])
