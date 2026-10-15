@@ -1,396 +1,214 @@
-# 🎓 SQL4Data - Interactive SQL Learning Platform
-
 <div align="center">
 
-![SQL4Data](https://img.shields.io/badge/SQL-Learning%20Platform-4B32C3?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql)
+# 🎓 SQL4Data — Learn SQL by Solving Real Data Problems
 
-**Master SQL through interactive exercises with AI-powered feedback**
+**Interactive SQL training platform: 100+ graded exercises on realistic databases, AI explanations of your mistakes, XP progression and a freemium model.**
 
-[🚀 Live Demo](#) • [📖 Documentation](STRIPE_SETUP_GUIDE.md) • [💡 Features](#features) • [🛠️ Setup](#installation)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Vite-3178C6?logo=typescript&logoColor=white)](https://vitejs.dev/)
+[![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-1.9-764ABC?logo=redux&logoColor=white)](https://redux-toolkit.js.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
+[![Stripe](https://img.shields.io/badge/Stripe-subscriptions-635BFF?logo=stripe&logoColor=white)](https://stripe.com/)
+[![Storybook](https://img.shields.io/badge/Storybook-components-FF4785?logo=storybook&logoColor=white)](https://storybook.js.org/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](LICENSE)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## 📌 Table of contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Pricing](#pricing)
-- [Architecture](#architecture)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [How a query is graded](#-how-a-query-is-graded)
+- [Learning path](#-learning-path)
+- [API](#-api)
+- [Quick start](#-quick-start)
+- [Project structure](#-project-structure)
+- [Credits & license](#-credits--license)
 
 ---
 
 ## 🎯 Overview
 
-**SQL4Data** is a modern, interactive SQL learning platform designed specifically for aspiring data engineers, analysts, and developers. Learn SQL by solving real-world problems with immediate feedback from AI-powered explanations.
-
-### Why SQL4Data?
-
-- 🎯 **Progressive Learning**: 100+ exercises from beginner to expert
-- 🤖 **AI-Powered Feedback**: Get intelligent hints and explanations powered by Google Gemini
-- 💰 **Affordable Pricing**: Only €4.99/month - accessible to everyone
-- 🎮 **Gamified Experience**: Track progress, earn badges, level up
-- 🌍 **Multi-language**: English, French, Arabic, Russian support
-- 🔒 **Secure & Private**: OAuth authentication with Google/GitHub
+SQL4Data targets aspiring **data analysts, data engineers and data scientists**. Each exercise is a business question on a realistic database; your query is executed and its **result set is compared with a reference solution**. When it fails, an LLM explains *why* — pedagogically, without giving away the answer.
 
 ---
 
 ## ✨ Features
 
-### 🎓 Learning Experience
+| | Feature |
+|---|---|
+| 🧩 | **115 tasks** — SELECT → JOIN → subqueries → CTEs → window functions → analytics |
+| 🗄️ | **Realistic datasets** — music store, e-commerce, accounting, data warehouse (star schema) |
+| ✅ | **Result-set grading** — order-aware comparison against a gold query |
+| 🤖 | **AI feedback** — Gemini explains errors and suggests next steps, with deterministic fallback |
+| 💡 | **Hint engine** — progressive hints generated per task |
+| 🎮 | **Gamification** — XP, levels, task unlocking, progress sync across devices |
+| 🔐 | **Auth** — JWT + Google / GitHub OAuth |
+| 💎 | **Freemium** — daily limits for free users, Stripe Checkout + Customer Portal for Premium |
+| 🌍 | **4 languages** — English · Français · العربية · Русский; light / dark theme |
 
-- **100+ SQL Exercises**: Covering SELECT, JOIN, Subqueries, CTEs, Window Functions, and more
-- **Real Databases**: Practice with realistic datasets (Music Store, E-commerce)
-- **Instant Validation**: Execute queries and see results in real-time
-- **AI Explanations**: Stuck? Get pedagogical hints that guide without spoiling
-- **Solution Access**: View optimal solutions after attempting (Premium)
-- **Progress Tracking**: Monitor your XP, level, and completed tasks
-
-### 🎮 Gamification
-
-- **XP System**: Earn experience points for solving tasks
-- **Level Progression**: Unlock new challenges as you advance
-- **Badges & Achievements**: Showcase your SQL mastery
-- **Task Locking**: First 5 tasks free, unlock more with XP
-- **Leaderboards**: Coming soon!
-
-### 💎 Premium Features (€4.99/month)
-
-- ✅ **Unlimited AI Feedback** (50/day fair use limit)
-- ✅ **All 100+ Exercises** unlocked
-- ✅ **Unlimited Hints** on every task
-- ✅ **Solution Viewer** for all exercises
-- ✅ **Ad-Free Experience**
-- ✅ **Priority Support**
-- ✅ **Offline Access** (coming soon)
-
-### 🆓 Free Tier
-
-- ✅ Access to basic exercises
-- ✅ 3 AI feedback requests per day
-- ✅ Progress tracking
-- ✅ 3 hints per day
-- ❌ Limited exercise access
-- ❌ No solution viewer
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-- **React 18** + **TypeScript** - Modern UI framework
-- **Vite** - Lightning-fast build tool
-- **Tailwind CSS** - Utility-first styling
-- **React Router** - Client-side routing
-- **Redux Toolkit** - State management
-- **i18next** - Internationalization
-- **React Aria** - Accessible UI components
-
-### Backend
-
-- **FastAPI** - High-performance Python API framework
-- **PostgreSQL** - Robust SQL database
-- **SQLAlchemy** - ORM with async support
-- **Google Gemini AI** - AI-powered explanations
-- **Stripe** - Payment processing
-- **OAuth 2.0** - Secure authentication (Google, GitHub)
-
-### DevOps
-
-- **Docker** + **Docker Compose** - Containerization
-- **Nginx** - Reverse proxy (production)
-- **GitHub Actions** - CI/CD (coming soon)
-
----
-
-## 🚀 Installation
-
-### Prerequisites
-
-- **Node.js** 18+ and npm
-- **Python** 3.11+
-- **Docker** and Docker Compose
-- **PostgreSQL** 16+ (or use Docker)
-
-### Quick Start with Docker (Recommended)
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/iDeBugger/sql-trainer.git
-cd sql-trainer
-
-# 2. Configure environment variables
-cp backend/.env.example backend/.env
-# Edit backend/.env with your API keys
-
-# 3. Start all services
-docker compose up -d
-
-# 4. Access the application
-# Frontend: http://localhost:5173
-# Backend API: http://localhost:8001
-# API Docs: http://localhost:8001/docs
-```
-
-### Manual Installation
-
-#### Backend Setup
-
-```bash
-cd backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# Run database migrations
-python -m alembic upgrade head
-
-# Start the server
-uvicorn main:app --reload --port 8001
-```
-
-#### Frontend Setup
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
-### Database Setup
-
-```bash
-# Run initial migration
-docker exec -i sql4data_postgres psql -U sql4data_user -d sql4data_db < backend/migration_add_users.sql
-
-# Verify database
-docker exec -it sql4data_postgres psql -U sql4data_user -d sql4data_db
-```
-
----
-
-## 🎮 Usage
-
-### For Learners
-
-1. **Sign Up**: Create an account or sign in with Google/GitHub
-2. **Choose a Task**: Start with beginner exercises
-3. **Write SQL**: Use the built-in editor with syntax highlighting
-4. **Execute & Learn**: Run your query and see results instantly
-5. **Get Feedback**: Need help? Request AI-powered explanations
-6. **Track Progress**: Watch your XP grow and level up!
-
-### For Developers
-
-```bash
-# Run tests
-npm test
-
-# Lint code
-npm run lint
-
-# Type check
-npm run type-check
-
-# Format code
-npm run format
-```
-
----
-
-## 💰 Pricing
-
-### 📦 Pricing Plans
-
-| Feature | Free | Premium (€4.99/mo) |
-|---------|------|-------------------|
-| **Basic Exercises** | ✅ | ✅ |
-| **AI Feedback** | 3/day | 50/day |
-| **Hints** | 3/day | Unlimited |
-| **All Exercises** | ❌ | ✅ |
-| **Solution Viewer** | ❌ | ✅ |
-| **Ad-Free** | ❌ | ✅ |
-| **Priority Support** | ❌ | ✅ |
-
-### 💎 Special Offer
-
-- **Monthly**: €4.99/month
-- **Yearly**: €49.90/year (Save 2 months! Only €4.15/mo)
-
-👉 [Subscribe Now](#) | [Setup Stripe Integration](STRIPE_SETUP_GUIDE.md)
+| | Free | Premium |
+|---|:---:|:---:|
+| AI feedback | 3 / day | 50 / day |
+| Hints | 3 / day | unlimited |
+| All exercises | — | ✅ |
+| Solution viewer | — | ✅ |
 
 ---
 
 ## 🏗️ Architecture
 
-```
-sql4data/
-├── frontend/
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── blocks/         # Feature-specific components
-│   │   ├── store/          # Redux state management
-│   │   ├── i18n/           # Translations
-│   │   └── assets/         # Static assets
-│   └── public/             # Public assets
-│
-├── backend/
-│   ├── main.py             # FastAPI application
-│   ├── models.py           # Database models
-│   ├── auth/               # Authentication system
-│   ├── payment_router.py   # Stripe integration
-│   ├── usage_limits.py     # Usage tracking
-│   ├── ai_explainer.py     # AI feedback system
-│   └── query_executor.py   # SQL execution engine
-│
-├── database/
-│   └── init.sql            # Database schema & seed data
-│
-└── docker-compose.yml      # Docker orchestration
-```
+```mermaid
+flowchart LR
+    subgraph FE["⚛️ React + Vite SPA"]
+        UI["Editor · Table · HintPanel<br/>AIFeedback · GameStats"]
+        RS[("Redux store<br/>task · game · solutions · settings")]
+        TH["Thunks<br/>selectTask · checkAnswer"]
+        UI --> RS --> TH
+    end
 
-### Key Components
+    subgraph BE["🐍 FastAPI"]
+        EX["/api/execute"]
+        AIX["/api/explain"]
+        TK["/api/tasks"]
+        AU["auth/<br/>JWT · OAuth · progress"]
+        PY["payment_router<br/>Stripe"]
+        UL["usage_limits"]
+    end
 
-1. **Query Executor**: Safely executes user SQL queries in read-only mode
-2. **AI Explainer**: Generates pedagogical hints using Google Gemini
-3. **Usage Limits**: Tracks daily AI feedback usage per user
-4. **Payment System**: Handles Stripe subscriptions and webhooks
-5. **Progress Tracker**: Monitors XP, levels, and completed tasks
+    QE["query_executor<br/>read-only engine<br/>30 s timeout"]
+    PG[("🐘 PostgreSQL<br/>practice DBs + users")]
+    GM["✨ Gemini"]
+    ST["💳 Stripe"]
+
+    TH -- REST --> EX & AIX & TK
+    FE --> AU & PY
+    EX --> QE --> PG
+    AIX --> UL --> GM
+    AU --> PG
+    PY <--> ST
+```
 
 ---
 
-## 🔐 Environment Variables
+## 🔍 How a query is graded
 
-Create a `.env` file in the backend directory:
+```mermaid
+sequenceDiagram
+    autonumber
+    actor L as Learner
+    participant F as Frontend
+    participant A as FastAPI
+    participant Q as QueryExecutor
+    participant P as PostgreSQL (read-only)
+    participant G as Gemini
 
-```env
-# Database
-DATABASE_URL=postgresql+asyncpg://user:password@localhost/sql4data_db
-
-# Google Gemini AI
-GEMINI_API_KEY=your_gemini_api_key
-
-# OAuth (Optional)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-
-# Stripe (Optional - for payments)
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
-STRIPE_PRICE_MONTHLY=price_...
-STRIPE_PRICE_YEARLY=price_...
-
-# Security
-JWT_SECRET_KEY=your_secret_key_min_32_chars
+    L->>F: write SQL, click Run
+    F->>A: POST /api/execute {task_id, query}
+    A->>Q: validate safety (no DROP/ALTER/…)
+    Q->>P: execute user query (timeout 30 s)
+    Q->>P: execute reference query
+    Q->>Q: compare result sets
+    alt correct
+        A-->>F: ✅ + XP
+    else wrong / error
+        A-->>F: ❌ diff (rows, columns)
+        L->>F: ask for help
+        F->>A: POST /api/explain
+        A->>A: check daily quota
+        A->>G: error + query + task context
+        G-->>A: explanation + hints
+        A-->>F: pedagogical feedback
+    end
 ```
 
-📖 **Full setup guide**: [STRIPE_SETUP_GUIDE.md](STRIPE_SETUP_GUIDE.md)
+**Safety:** queries run on a dedicated read-only engine with a statement timeout and a deny-list of DDL/DML keywords.
 
 ---
 
-## 🧪 Testing
+## 🗺️ Learning path
+
+```mermaid
+flowchart LR
+    A["SELECT &<br/>filtering"] --> B["Aggregation<br/>GROUP BY"] --> C["JOINs"] --> D["Subqueries"] --> E["CTEs"] --> F["Window<br/>functions"] --> G["Analytics on a<br/>data warehouse"]
+```
+
+---
+
+## 🔌 API
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/health` | Status |
+| `GET` | `/api/tasks` · `/api/tasks/{id}` | Task catalogue |
+| `POST` | `/api/execute` | Run + grade a query |
+| `POST` | `/api/explain` | AI explanation of an error |
+| `POST` | `/create-checkout-session` · `/create-portal-session` | Stripe billing |
+| `POST` | `/webhook` | Stripe events |
+| `GET` | `/subscription-status` | Current plan |
+
+---
+
+## 🚀 Quick start
 
 ```bash
-# Run frontend tests
-npm test
+git clone https://github.com/mohamedabi17/SQL4Data.git
+cd SQL4Data
 
-# Run backend tests
+# Backend
 cd backend
-pytest
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env               # DATABASE_URL, GEMINI_API_KEY, JWT, OAuth, Stripe keys
+uvicorn main:app --reload --port 8001
 
-# E2E tests (coming soon)
-npm run test:e2e
+# Frontend
+cd ..
+npm install
+npm run dev                        # http://localhost:5173
+```
+
+Component workshop: `npm run storybook`.
+
+---
+
+## 📁 Project structure
+
+```
+.
+├── src/
+│   ├── blocks/ · components/    # Feature blocks + reusable UI (Storybook stories)
+│   ├── store/                   # Redux: reducers, thunks, listener middleware
+│   ├── assets/databases/        # music · ecommerce · accounting · datawarehouse
+│   ├── assets/tasks/tasks.ts    # Exercise catalogue
+│   ├── utils/hintGenerator.ts
+│   └── i18n/resources/          # en · fr · ar · ru
+├── backend/
+│   ├── main.py                  # FastAPI app
+│   ├── query_executor.py        # Safe execution + result comparison
+│   ├── ai_explainer.py          # Gemini explanations
+│   ├── usage_limits.py          # Free / Premium quotas
+│   ├── payment_router.py · stripe_integration.py
+│   └── auth/                    # JWT, OAuth, progress, ads
+└── .storybook/
 ```
 
 ---
 
-## 🤝 Contributing
+## 🙏 Credits & license
 
-We welcome contributions! Here's how you can help:
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit changes**: `git commit -m 'Add amazing feature'`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### Development Guidelines
-
-- Follow the existing code style
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-
----
-
-## 📝 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Google Gemini** for AI-powered explanations
-- **Stripe** for payment processing
-- **Chinook Database** for sample music data
-- **React Community** for amazing tools and libraries
-
----
-
-## 📞 Support
-
-- 📧 Email: support@sql4data.com
-- 💬 Discord: [Join our community](#)
-- 🐛 Issues: [GitHub Issues](https://github.com/iDeBugger/sql-trainer/issues)
-- 📖 Docs: [Full Documentation](#)
-
----
-
-## 🗺️ Roadmap
-
-- [ ] Mobile app (React Native)
-- [ ] Advanced analytics dashboard
-- [ ] Team/classroom features
-- [ ] Custom SQL challenges
-- [ ] Video tutorials integration
-- [ ] Code review system
-- [ ] Community forum
-- [ ] API access for educators
+SQL4Data extends the open-source **sql-trainer** project by [iDeBugger](https://github.com/iDeBugger/sql-trainer) with a FastAPI backend, AI feedback, accounts, payments and new datasets.
+Distributed under the **GNU AGPL v3** — see [LICENSE](LICENSE).
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by developers, for developers**
-
-[⭐ Star us on GitHub](https://github.com/iDeBugger/sql-trainer) • [🐦 Follow on Twitter](#) • [💼 LinkedIn](#)
+**Mohamed Abi** · [GitHub @mohamedabi17](https://github.com/mohamedabi17)
 
 </div>
