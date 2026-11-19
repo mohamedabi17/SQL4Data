@@ -32,3 +32,4 @@ backend/.env
 
 public/storybook-tailwind.css
 storybook-static/
+backend/.env.production
